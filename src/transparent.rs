@@ -196,7 +196,7 @@ pub fn zstd_enable_transparent<'a>(ctx: &Context) -> anyhow::Result<ToSqlOutput<
     }
     if primary_key_columns.is_empty() {
         anyhow::bail!(
-            "Table {} does not have a primary key, sqlite-zstd only works on tables with primary keys.",
+            "Table {} does not have a primary key, mi only works on tables with primary keys.",
             table_name
         );
     }

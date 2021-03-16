@@ -87,8 +87,8 @@ pub fn escape_sqlite_identifier(identifier: &str) -> String {
 }*/
 
 pub fn init_logging(default_level: LevelFilter) {
-    if std::env::var("SQLITE_ZSTD_LOG").is_err() {
-        std::env::set_var("SQLITE_ZSTD_LOG", format!("{}", default_level));
+    if std::env::var("MI_LOG").is_err() {
+        std::env::set_var("MI_LOG", format!("{}", default_level));
     }
-    env_logger::try_init_from_env(env_logger::Env::new().filter("SQLITE_ZSTD_LOG")).ok();
+    env_logger::try_init_from_env(env_logger::Env::new().filter("MI_LOG")).ok();
 }

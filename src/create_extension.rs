@@ -23,11 +23,11 @@ pub extern "C" fn sqlite3_sqlitezstd_init(
      */
     match init(db) {
         Ok(()) => {
-            log::info!("[sqlite-zstd] initialized");
+            log::info!("[mi] initialized");
             ffi::SQLITE_OK
         }
         Err(e) => {
-            log::error!("[sqlite-zstd] init error: {:?}", e);
+            log::error!("[mi] init error: {:?}", e);
             ffi::SQLITE_ERROR
         }
     }

@@ -1,4 +1,4 @@
-# sqlite-zstd
+# mi
 
 Extension for sqlite that provides transparent dictionary-based row-level compression for sqlite. This basically allows you to compress entries in a sqlite database almost as well as if you were compressing the whole DB file, but while retaining random access.
 
@@ -38,11 +38,11 @@ Depending on the data, this can reduce the size of the database by 90% while kee
 
     ```
     sqlite> select zstd_incremental_maintenance(60);
-      [2020-12-23T21:11:31Z WARN  sqlite_zstd::transparent] Warning: It is recommended to set `pragma busy_timeout=2000;` or higher
-      [2020-12-23T21:11:40Z INFO  sqlite_zstd::transparent] events.data: Total 5.20GB to potentially compress.
-      3[2020-12-23T21:13:22Z INFO  sqlite_zstd::transparent] Compressed 6730 rows with dictid=109. Total size of entries before: 163.77MB, afterwards: 2.12MB, (average: before=24.33kB, after=315B)
-      [2020-12-23T21:13:43Z INFO  sqlite_zstd::transparent] Compressed 4505 rows with dictid=110. Total size of entries before: 69.28MB, afterwards: 1.60MB, (average: before=15.38kB, after=355B)
-      [2020-12-23T21:14:06Z INFO  sqlite_zstd::transparent] Compressed 5228 rows with dictid=111. Total size of entries before: 91.97MB, afterwards: 1.41MB, (average: before=17.59kB, after=268B)
+      [2020-12-23T21:11:31Z WARN  mi::transparent] Warning: It is recommended to set `pragma busy_timeout=2000;` or higher
+      [2020-12-23T21:11:40Z INFO  mi::transparent] events.data: Total 5.20GB to potentially compress.
+      3[2020-12-23T21:13:22Z INFO  mi::transparent] Compressed 6730 rows with dictid=109. Total size of entries before: 163.77MB, afterwards: 2.12MB, (average: before=24.33kB, after=315B)
+      [2020-12-23T21:13:43Z INFO  mi::transparent] Compressed 4505 rows with dictid=110. Total size of entries before: 69.28MB, afterwards: 1.60MB, (average: before=15.38kB, after=355B)
+      [2020-12-23T21:14:06Z INFO  mi::transparent] Compressed 5228 rows with dictid=111. Total size of entries before: 91.97MB, afterwards: 1.41MB, (average: before=17.59kB, after=268B)
     ```
 
 ## Basic Functionality
@@ -68,7 +68,7 @@ Depending on the data, this can reduce the size of the database by 90% while kee
 
     Note that passing dictionary as an int is recommended, since then the dictionary only has to be prepared once.
 
-    is_text specifies whether to output the data as text or as a blob. Note that when outputting as text the encoding depends on the sqlite database encoding. sqlite-zstd is only tested with UTF-8.
+    is_text specifies whether to output the data as text or as a blob. Note that when outputting as text the encoding depends on the sqlite database encoding. mi is only tested with UTF-8.
 
     compact must be specified when the compress function was also called with compact.
 
@@ -102,44 +102,44 @@ Either load it in the REPL:
 ```sh
 $ sqlite3 file.db
 SQLite version 3.34.0 2020-12-01 16:14:00
-sqlite> .load .../libsqlite_zstd.so
-[2020-12-23T21:30:02Z INFO  sqlite_zstd::create_extension] [sqlite-zstd] initialized
+sqlite> .load .../libmi.so
+[2020-12-23T21:30:02Z INFO  mi::create_extension] [mi] initialized
 sqlite>
 ```
 
 Or alternatively:
 
-`sqlite3 -cmd '.load libsqlite_zstd.so'`
+`sqlite3 -cmd '.load libmi.so'`
 
 **C Api**
 
 ```c
-int success = sqlite3_load_extension(db, "libsqlite_zstd.so", NULL, NULL);
+int success = sqlite3_load_extension(db, "libmi.so", NULL, NULL);
 ```
 
 See [here](https://www.sqlite.org/loadext.html) for more information.
 
 **Rust**
 
-The recommended method is to add `sqlite_zstd` as a dependency to your project, then load it using
+The recommended method is to add `mi` as a dependency to your project, then load it using
 
 ```rust
 let conn: rusqlite::Connection;
-sqlite_zstd::load(&conn)?;
+mi::load(&conn)?;
 ```
 
 Alternatively, you can load the extension like any other extension:
 
 ```rust
 let conn: rusqlite::Connection;
-conn.load_extension("libsqlite_zstd.so", None)?;
+conn.load_extension("libmi.so", None)?;
 ```
 
 See [here](https://docs.rs/rusqlite/0.24.2/rusqlite/struct.Connection.html#method.load_extension) for more information.
 
 # Verbosity / Debugging
 
-You can change the log level by setting the environment variable `RUST_LOG=sqlite_zstd=error` for less logging and `RUST_LOG=sqlite_zstd=debug` for more logging.
+You can change the log level by setting the environment variable `RUST_LOG=mi=error` for less logging and `RUST_LOG=mi=debug` for more logging.
 
 # Future Work / Ideas / Todo
 

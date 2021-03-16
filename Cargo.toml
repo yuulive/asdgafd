@@ -1,10 +1,10 @@
 [package]
-name = "sqlite-zstd"
+name = "mi"
 version = "0.1.2-alpha.0"
 authors = ["phiresky <phireskyde+git@gmail.com>"]
 edition = "2018"
-description = "Extension for sqlite that provides transparent dictionary-based row-level compression for sqlite"
-repository = "https://github.com/phiresky/sqlite-zstd"
+description = "Mi is an extension for sqlite that provides transparent dictionary-based row-level compression for sqlite"
+repository = "https://github.com/yuulive/mi"
 license = "LGPL-2.0-or-later"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
